@@ -52,6 +52,7 @@ def samplevalue(sample):
     otu_ids = chosen['OTU ID #'].tolist()
     sample_values = chosen[sampleNum].tolist()
     samples = [{"otu_ids": otu_ids}, {"sample_values": sample_values}]
+    
     return jsonify(samples)
 
 

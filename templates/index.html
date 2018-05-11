@@ -60,6 +60,8 @@
 
                   <select id="selDataset" onchange="optionChanged(this.value)">
 
+                      
+
                   </select>
                   <div id="pie_chart">Pie Chart</div>
                     <script>
@@ -80,17 +82,16 @@
                       
                     });
 
-                    function optionChanged() {
-
-                    };
                     // Pie Chart
 fetch("http://127.0.0.1:5000/samples/BB_941")
 .then( (response) => {
   return response.json();
 })
 .then( (json_Data) => {
-  let sample_values = json_Data[1].sample_values 
-  let otu_ids = json_Data[0].otu_ids             
+
+let sample_values = json_Data[1].sample_values.slice(0,10); 
+let otu_ids = json_Data[0].otu_ids.slice(0,10);
+
 let pie_trace = {
   values: sample_values,
   labels: otu_ids,
@@ -109,7 +110,43 @@ Plotly.newPlot("pie_chart", data, layout);
 })
 
 
- 
+// Update Pie Chart
+
+
+
+function updatePlotly(sample_id){
+    let pieDiv = document.getElementById("pie_chart");
+    
+    fetch(`http://127.0.0.1:5000/samples/${sample_id}`)
+    .then( (response) => {
+    return response.json()
+    })
+
+    .then( (json_Data) => {
+
+        let new_sample_values = json_Data[1].sample_values.slice(0,10);
+        let new_otu_ids = json_Data[0].otu_ids.slice(0,10);
+
+        Plotly.restyle(pieDiv, "values", [new_sample_values]);
+        Plotly.restyle(pieDiv, "labels", [new_otu_ids]);
+
+  })
+};
+
+// Dropdown Menu onchange Function
+
+function optionChanged(dropdown_choice) {
+
+updatePlotly(dropdown_choice)
+
+};
+
+
+
+
+
+
+
                     </script>
 
                   
