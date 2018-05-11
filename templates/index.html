@@ -59,11 +59,23 @@
                   <hr>
 
                   <select id="selDataset" onchange="optionChanged(this.value)">
-
+                  
                       
 
                   </select>
+                  <div id="metadata">
+                    Metadata <br>
+
+                    <table id="metadata_table">
+                        <tr><th> Sample MetaData </th></tr>
+                        
+                        
+  
+                      </table>
+
+                  </div>
                   <div id="pie_chart">Pie Chart</div>
+                  <div id="bubble_chart">Bubble Chart</div>
                     <script>
 // Fetch JSON names and update Dropdown Menu
                     fetch("http://127.0.0.1:5000/names")
@@ -106,17 +118,36 @@ let layout = {
 };
 
 Plotly.newPlot("pie_chart", data, layout);
+// Bubble Chart
+let bubble_trace = {
+  x: otu_ids,
+  y: sample_values,
+  mode: 'markers',
+  marker: {
+    size: sample_values,
+    color: otu_ids
+  }
+};
+
+let bubble_data = [bubble_trace]
+
+let bubble_layout = {
+  title: "Bubble Chart",
+  height: 600,
+  width: 1200
+};
+
+Plotly.newPlot("bubble_chart", bubble_data, bubble_layout)
 
 })
 
 
-// Update Pie Chart
-
-
+// Update Charts
 
 function updatePlotly(sample_id){
     let pieDiv = document.getElementById("pie_chart");
-    
+    let bubbleDiv = document.getElementById("bubble_chart")
+
     fetch(`http://127.0.0.1:5000/samples/${sample_id}`)
     .then( (response) => {
     return response.json()
@@ -129,7 +160,8 @@ function updatePlotly(sample_id){
 
         Plotly.restyle(pieDiv, "values", [new_sample_values]);
         Plotly.restyle(pieDiv, "labels", [new_otu_ids]);
-
+        Plotly.restyle(bubbleDiv, "x", [new_otu_ids]);
+        Plotly.restyle(bubbleDiv, "y", [new_sample_values]);
   })
 };
 
@@ -138,9 +170,24 @@ function updatePlotly(sample_id){
 function optionChanged(dropdown_choice) {
 
 updatePlotly(dropdown_choice)
-
+updateMetaData(dropdown_choice)
 };
-
+function updateMetaData(sample_id) {
+                    fetch(`http://127.0.0.1:5000/metadata/${sample_id}`)
+                    .then ( (response)=> {
+                      return response.json();
+                    })
+                    .then( (jsonData)=> {
+                      for(let row in jsonData) {
+                      let metadata_table = document.getElementById("metadata_table");
+                      let table_row = document.createElement("tr");
+                      let table_data = document.createElement("td");
+                      table_data.innerHTML = `${row}: ${jsonData[row]}`;
+                      table_row.appendChild(table_data);
+                      metadata_table.appendChild(table_row);
+                    }
+                      });
+                    }
 
 
 
