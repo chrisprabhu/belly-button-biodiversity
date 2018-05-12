@@ -8,17 +8,17 @@ biodata_df2 = pd.read_excel("biodata1.xlsx", sheet_name= 1)
 @app.route("/")
 def homepage():
     return render_template("index.html")
-@app.route('/names')
+@app.route("/names")
 def names():
     names_list = list(biodata_df)[2:]
     for i in range(len(names_list)):
         names_list[i] = "BB_" + str(names_list[i])
     return jsonify(names_list)
-@app.route('/otu')
+@app.route("/otu")
 def otu():
     otu_list = biodata_df.iloc[:,1].tolist()
     return jsonify(otu_list)
-@app.route('/metadata/<sample>')
+@app.route("/metadata/<sample>")
 def metadata(sample):
     sampleID = int(sample.split("_")[1])
     age = biodata_df2[sampleID][3]
@@ -36,20 +36,20 @@ def metadata(sample):
     "SAMPLEID": sampleid
     }
     return jsonify(metadata_dict)
-@app.route('/wfreq/<sample>')
+@app.route("/wfreq/<sample>")
 def wfreq(sample):
     sampleID = int(sample.split("_")[1])
-    wash_freq = biodata_df2[sampleID][4]
+    wash_freq = int(biodata_df2[sampleID][4])
     return jsonify(wash_freq)
 
-@app.route('/samples/<sample>')
+@app.route("/samples/<sample>")
 def samplevalue(sample):
     sampleNum = int(sample.split("_")[1])
     cols = ["OTU ID #", sampleNum]
-    chosen = biodata_df[cols]
-    chosen[sampleNum] = pd.to_numeric(chosen[sampleNum], downcast='integer', errors='coerce')
+    chosen = biodata_df.loc[:,("OTU ID #", sampleNum)]
+    chosen[sampleNum] = pd.to_numeric(chosen[sampleNum], downcast="integer", errors="coerce")
     chosen = chosen.sort_values(by=sampleNum, ascending=False)
-    otu_ids = chosen['OTU ID #'].tolist()
+    otu_ids = chosen["OTU ID #"].tolist()
     sample_values = chosen[sampleNum].tolist()
     samples = [{"otu_ids": otu_ids}, {"sample_values": sample_values}]
     

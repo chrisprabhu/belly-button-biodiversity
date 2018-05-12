@@ -1,0 +1,11 @@
+#head {
+    background-color: lightgray;
+    padding: 70px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.databox {
+    box-sizing: border-box;
+    border: 1px solid gray;
+    }
+

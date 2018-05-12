@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
+      
       <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,7 +12,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="styles.css"> -->
-    <title>Landing Page</title>
+    <title>Belly Button Biodiversity Dashboard</title>
   </head>
   <body>
 <!-- Navbar Start-->
@@ -63,146 +64,21 @@
                       
 
                   </select>
-                  <div id="metadata">
-                    Metadata <br>
 
-                    <table id="metadata_table">
-                        <tr><th> Sample MetaData </th></tr>
-                        
-                        
-  
-                      </table>
 
-                  </div>
                   <div id="pie_chart">Pie Chart</div>
                   <div id="bubble_chart">Bubble Chart</div>
-                    <script>
-// Fetch JSON names and update Dropdown Menu
-                    fetch("http://127.0.0.1:5000/names")
-                    .then ( (response)=> {
-                      return response.json();
-                    })
-                    .then( (jsonData)=> {
-                      let select_tag = document.getElementById("selDataset");
-                  
-                      jsonData.forEach((sample_name) => {
-                        let option_tag = document.createElement("option");
-                        option_tag.innerHTML = sample_name;
-                        select_tag.appendChild(option_tag);
-                      
-                      });
-                      
-                    });
-
-                    // Pie Chart
-fetch("http://127.0.0.1:5000/samples/BB_941")
-.then( (response) => {
-  return response.json();
-})
-.then( (json_Data) => {
-
-let sample_values = json_Data[1].sample_values.slice(0,10); 
-let otu_ids = json_Data[0].otu_ids.slice(0,10);
-
-let pie_trace = {
-  values: sample_values,
-  labels: otu_ids,
-  type: 'pie'
-};
-
-let data = [pie_trace];
-
-let layout = {
-  height: 400,
-  width: 500
-};
-
-Plotly.newPlot("pie_chart", data, layout);
-// Bubble Chart
-let bubble_trace = {
-  x: otu_ids,
-  y: sample_values,
-  mode: 'markers',
-  marker: {
-    size: sample_values,
-    color: otu_ids
-  }
-};
-
-let bubble_data = [bubble_trace]
-
-let bubble_layout = {
-  title: "Bubble Chart",
-  height: 600,
-  width: 1200
-};
-
-Plotly.newPlot("bubble_chart", bubble_data, bubble_layout)
-
-})
-
-
-// Update Charts
-
-function updatePlotly(sample_id){
-    let pieDiv = document.getElementById("pie_chart");
-    let bubbleDiv = document.getElementById("bubble_chart")
-
-    fetch(`http://127.0.0.1:5000/samples/${sample_id}`)
-    .then( (response) => {
-    return response.json()
-    })
-
-    .then( (json_Data) => {
-
-        let new_sample_values = json_Data[1].sample_values.slice(0,10);
-        let new_otu_ids = json_Data[0].otu_ids.slice(0,10);
-
-        Plotly.restyle(pieDiv, "values", [new_sample_values]);
-        Plotly.restyle(pieDiv, "labels", [new_otu_ids]);
-        Plotly.restyle(bubbleDiv, "x", [new_otu_ids]);
-        Plotly.restyle(bubbleDiv, "y", [new_sample_values]);
-  })
-};
-
-// Dropdown Menu onchange Function
-
-function optionChanged(dropdown_choice) {
-
-updatePlotly(dropdown_choice)
-updateMetaData(dropdown_choice)
-};
-function updateMetaData(sample_id) {
-                    fetch(`http://127.0.0.1:5000/metadata/${sample_id}`)
-                    .then ( (response)=> {
-                      return response.json();
-                    })
-                    .then( (jsonData)=> {
-                      for(let row in jsonData) {
-                      let metadata_table = document.getElementById("metadata_table");
-                      let table_row = document.createElement("tr");
-                      let table_data = document.createElement("td");
-                      table_data.innerHTML = `${row}: ${jsonData[row]}`;
-                      table_row.appendChild(table_data);
-                      metadata_table.appendChild(table_row);
-                    }
-                      });
-                    }
-
-
-
-
-
-
-                    </script>
-
-                  
                     
+
                 </div>
 
                 <div class="col-4" id="window">
                   <h1>Side Headline</h1>
                   <hr>
+                  <div id="metadata">
+                      <h6>Metadata Sample</h6>
+                        <table id="metadata_table">
+                        </table></div>
                   </div>
 
               </div>
@@ -224,5 +100,6 @@ function updateMetaData(sample_id) {
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bellybuttonscripts.js') }}"></script>
   </body>
 </html>
