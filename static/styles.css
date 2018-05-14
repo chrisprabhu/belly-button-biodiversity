@@ -1,11 +1,95 @@
-#head {
-    background-color: lightgray;
-    padding: 70px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+h1 {
+    color: #008B8B;
+    margin-left: 15px;
 }
-.databox {
-    box-sizing: border-box;
-    border: 1px solid gray;
-    }
+body {
+    background-color: #D3D3D3	;
+}
 
+#window{
+    border-style: solid;
+    border-width: 10px;
+    border-color: #D3D3D3;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    background-color: #f8f9fa;
+}
+
+#homebutton{
+    background-color: #008B8B;
+    color: white;
+    padding: 10px;
+}
+
+.title {
+    margin-right: 500px;
+    margin-left: 500px;
+    padding:20px;
+    padding-right:20px;
+    
+}
+
+.thumbnail {
+    border: 1px solid #ddd; /* Gray border */
+    border-radius: 4px;  /* Rounded border */
+    padding: 2px; /* Some padding */
+    width: 155px; /* Set a small width */
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    float: left;
+   
+}
+
+#wrapped {
+    float:left;
+    margin-right: 20px;
+}
+
+#footer1 {
+    text-align:center;
+    margin-top: 10px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+footer {
+    background-color: #585858;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    border-top: 7px solid #008B8B;
+    color:#D3D3D3;
+}
+
+#marginleft {
+    margin-left: 100px;
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+    
+    h1 {
+       font-size: 20px;
+    }
+}
+
+
+
+@media only screen and (max-width: 800px) {
+    
+    .row {
+        flex-direction: column;
+      }
+}
+
+#marginleft {
+    margin-left: 20px;
+}
