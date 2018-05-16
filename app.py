@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, redirect, render_template
 import pandas as pd
+import numpy as np
 app = Flask(__name__)
 
 biodata_df = pd.read_excel("biodata1.xlsx", sheet_name=0)
@@ -52,9 +53,7 @@ def samplevalue(sample):
     otu_ids = chosen["OTU ID #"].tolist()
     sample_values = chosen[sampleNum].tolist()
     samples = [{"otu_ids": otu_ids}, {"sample_values": sample_values}]
-    
     return jsonify(samples)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
