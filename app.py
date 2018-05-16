@@ -53,6 +53,7 @@ def samplevalue(sample):
     otu_ids = chosen["OTU ID #"].tolist()
     sample_values = chosen[sampleNum].tolist()
     samples = [{"otu_ids": otu_ids}, {"sample_values": sample_values}]
+    pd.DataFrame(data=samples).fillna(value=0)
     return jsonify(samples)
 
 if __name__ == "__main__":
