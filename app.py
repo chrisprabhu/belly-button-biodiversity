@@ -51,7 +51,8 @@ def samplevalue(sample):
     chosen[sampleNum] = pd.to_numeric(chosen[sampleNum], downcast="integer", errors="coerce")
     chosen = chosen.sort_values(by=sampleNum, ascending=False)
     otu_ids = chosen["OTU ID #"].tolist()
-    sample_values = chosen[sampleNum].tolist()
+    sample_values = chosen[sampleNum]
+    sample_values = sample_values.fillna('Missing Data').tolist()
     samples = [{"otu_ids": otu_ids}, {"sample_values": sample_values}]
     return jsonify(samples)
 
