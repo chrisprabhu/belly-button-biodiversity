@@ -1,6 +1,7 @@
 // Fetch JSON names and update Dropdown Menu
-
-                      let url = "http://127.0.0.1:5000/names"
+let current_url = window.location.href 
+console.log(current_url)
+                      let url = '/names'
                       d3.json(url, function(jsonData){
                       let select_tag = document.getElementById("selDataset");
      
@@ -15,14 +16,14 @@
                     });
 
 
-let url2 = "http://127.0.0.1:5000/samples/BB_940"
+let url2 = "/samples/BB_940"
                       d3.json(url2, function(json_Data){
 
 let sample_values = json_Data[1].sample_values.slice(0,10); 
 let otu_ids = json_Data[0].otu_ids.slice(0,10);
 let ordered_otu_array = []
 
-let url3 = "http://127.0.0.1:5000/otu"
+let url3 = "/otu"
                       d3.json(url3, function(json_Data){
 
   for(i=0; i < otu_ids.length; i++) {
@@ -79,7 +80,7 @@ function updatePlotly(sample_id){
     let pieDiv = document.getElementById("pie_chart");
     let bubbleDiv = document.getElementById("bubble_chart")
 
-        let url4 = `http://127.0.0.1:5000/samples/${sample_id}`
+        let url4 = `/samples/${sample_id}`
                       d3.json(url4, function(json_Data){
 
         let new_sample_values = json_Data[1].sample_values.slice(0,10);
@@ -105,7 +106,7 @@ function updateMetaData(sample_id) {
                     let metadata_table = document.getElementById("metadata_table");
                     metadata_table.innerHTML= "";
 
-                        let url5 = `http://127.0.0.1:5000/metadata/${sample_id}`
+                        let url5 = `/metadata/${sample_id}`
                         d3.json(url5, function(jsonData){
                       for(let row in jsonData) {
                       let metadata_table = document.getElementById("metadata_table");
