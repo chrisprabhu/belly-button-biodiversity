@@ -1,6 +1,4 @@
 // Fetch JSON names and update Dropdown Menu
-let current_url = window.location.href 
-console.log(current_url)
                       let url = '/names'
                       d3.json(url, function(jsonData){
                       let select_tag = document.getElementById("selDataset");

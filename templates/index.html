@@ -18,7 +18,7 @@
 <!-- Navbar Start-->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" id="homebutton" href="index.html">Home</a>
+        <a class="navbar-brand" id="homebutton" href="index.html">Belly Button BioDiversity Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -44,7 +44,9 @@
               <div class="row">
                 <div class="col-8" id="window">
 
-                  <h1>Belly Button BioDiversity</h1>
+                  This is an information dashboard created by Chris Prabhu based on the experiment by North Carolina State University's Rob Dunn Lab about the different kinds of bacteria that live within our belly buttons.
+     <br>     <br>    You can find out more about the experiment at their website here: <a href="http://robdunnlab.com/projects/belly-button-biodiversity/">Belly Button Biodiversity</a>.
+     <br>     <br>    Each sample has lots of information which we have generously graphed for you below. You can choose which sample you would like view with the dropdown menu. 
                   <hr>
 
                   <select id="selDataset" onchange="optionChanged(this.value)">
@@ -54,17 +56,21 @@
                   </select>
 
 
-                  <div id="pie_chart">Pie Chart</div>
-                  <div id="bubble_chart">Bubble Chart</div>
+                  <div id="pie_chart">
+
+                  </div>
+                  <div id="bubble_chart">
+                    
+                  </div>
                     
 
                 </div>
 
                 <div class="col-4" id="window">
-                  <h1>Side Headline</h1>
+                  <h6>Sample Information</h6>
                   <hr>
                   <div id="metadata">
-                      <h6>Metadata Sample</h6>
+                   
                         <table id="metadata_table">
                         </table></div>
                   </div>
