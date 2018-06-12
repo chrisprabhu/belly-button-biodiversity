@@ -5,13 +5,14 @@ app = Flask(__name__)
 
 biodata_df = pd.read_excel("biodata1.xlsx", sheet_name=0)
 biodata_df2 = pd.read_excel("biodata1.xlsx", sheet_name= 1)
+names_list = list(biodata_df)[2:]
 
 @app.route("/")
 def homepage():
     return render_template("index.html")
 @app.route("/names")
 def names():
-    names_list = list(biodata_df)[2:]
+    
     for i in range(len(names_list)):
         names_list[i] = "BB_" + str(names_list[i])
     return jsonify(names_list)
