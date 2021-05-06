@@ -5,7 +5,7 @@ chardet==3.0.4
 click==6.7
 docutils==0.14
 Flask==1.0.2
-Flask-Cors==3.0.4
+Flask-Cors==3.0.9
 Flask-PyMongo==0.5.1
 Flask-SQLAlchemy==2.3.2
 gunicorn==19.8.1
